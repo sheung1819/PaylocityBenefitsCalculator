@@ -15,10 +15,15 @@ namespace Api.Services
             _employeeRepository = employeeRepository;   
         }
 
-        public GetDependentDto GetDependentByID(int id)
+        public GetDependentDto? GetDependentByID(int id)
         {
             var employees = _employeeRepository.GetEmployees();
-            var dependent = employees.SelectMany(x => x.Dependents).First(x => x.Id == id);
+            var dependent = employees.SelectMany(x => x.Dependents).FirstOrDefault(x => x.Id == id);
+
+            if(dependent == null) 
+            {
+                return null;
+            }
             return _mapper.Map<GetDependentDto>(dependent);
         }
 

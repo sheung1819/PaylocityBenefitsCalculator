@@ -6,6 +6,6 @@ namespace Api.Services
     public interface IEmployeeService
     {
         IEnumerable<GetEmployeeDto> GetEmployees();
-        GetEmployeeDto GetEmployeeByID(int id);
+        GetEmployeeDto? GetEmployeeByID(int id);
     }
 }

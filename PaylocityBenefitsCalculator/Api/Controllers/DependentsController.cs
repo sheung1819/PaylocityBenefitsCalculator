@@ -21,7 +21,13 @@ public class DependentsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<ApiResponse<GetDependentDto>>> Get(int id)
     {
-       var dependent =  _dependentService.GetDependentByID(id);
+        var dependent =  _dependentService.GetDependentByID(id);
+
+        if(dependent == null) 
+        {
+            return NotFound();
+        }
+
         return new ApiResponse<GetDependentDto>
         {
             Data = dependent,

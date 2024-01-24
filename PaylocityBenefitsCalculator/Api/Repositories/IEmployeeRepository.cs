@@ -5,6 +5,6 @@ namespace Api.Repositories
     public interface IEmployeeRepository
     {
         IEnumerable<Employee> GetEmployees();
-        Employee GetEmployeeByID(int id);
+        Employee? GetEmployeeByID(int id);
     }
 }

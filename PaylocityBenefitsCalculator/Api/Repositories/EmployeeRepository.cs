@@ -73,9 +73,9 @@ namespace Api.Repositories
                 }
             };
         }
-        public Employee GetEmployeeByID(int id)
+        public Employee? GetEmployeeByID(int id)
         {
-            return _employees.First(x => x.Id == id);
+            return _employees.FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<Employee> GetEmployees()
