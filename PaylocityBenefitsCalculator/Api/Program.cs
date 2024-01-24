@@ -1,3 +1,5 @@
+using Api.Repositories;
+using Api.Services;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +26,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy(allowLocalhost,
         policy => { policy.WithOrigins("http://localhost:3000", "http://localhost"); });
 });
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+builder.Services.AddTransient<IDependentService, DependentService>();
 
 var app = builder.Build();
 
