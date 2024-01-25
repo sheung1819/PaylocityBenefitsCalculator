@@ -44,7 +44,6 @@ namespace Api.Services
             var monthlyBenefitCost = _monthlyPaycheckCalculator.Calculate(benefitCost);
             var monthlySalary = _monthlyPaycheckCalculator.Calculate(employee.Salary);
 
-
             for(var i =0; i < monthlyBenefitCost.Count - 1 ; i++) 
             {
                 employee.Paychecks.Add(new Models.MonthlyPaycheck()
