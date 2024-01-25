@@ -6,8 +6,9 @@ namespace Api.Processor
     {
         public decimal CalculateBenefit(Employee employee)
         {
-            var dependents = employee.Dependents.Where(x => x.age)
+            var dependents = employee.Dependents.Where(x => Helper.CalculateAgeHelper.CalculateAge(x.DateOfBirth) > 50);
 
+            return dependents.Count() * 200;
         }
     }
 }
