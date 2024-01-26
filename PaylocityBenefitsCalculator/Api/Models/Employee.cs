@@ -8,5 +8,4 @@ public class Employee
     public decimal Salary { get; set; }
     public DateTime DateOfBirth { get; set; }
     public ICollection<Dependent> Dependents { get; set; } = new List<Dependent>();
-    public ICollection<MonthlyPaycheck> Paychecks { get; set; } = new List<MonthlyPaycheck>();    
 }

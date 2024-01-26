@@ -1,31 +1,34 @@
-﻿namespace Api.Services
+﻿using Api.Models;
+
+namespace Api.Services
 {
     public interface IMonthlyPaycheckCalculator
     {
-        IList<decimal> Calculate(decimal amount);
+        void Calculate(Paycheck paycheck);
     }
     public class MonthlyPaycheckCalculator : IMonthlyPaycheckCalculator
     {
-        private readonly int _paycheckPeriod = 26;
+        private readonly int _paycheckPeriod = 26;     
 
-        public IList<decimal> Calculate(decimal amount)
+        public void Calculate(Paycheck paycheck)
         {
-            var remain = amount % _paycheckPeriod;
-            var monthlyAmount = new List<decimal>();
-            var perPaycheckAmonnt = amount / _paycheckPeriod;
+            var salaryPerPaycheck = paycheck.Employee.Salary / _paycheckPeriod;
+            var benefitPerPaycheck = paycheck.TotalBenefitCost / _paycheckPeriod;
+            
             for (var i = 0; i < _paycheckPeriod; i++)
             {
-                monthlyAmount.Add(perPaycheckAmonnt);
+                var monthlyPaycheck = new MonthlyPaycheck
+                {
+                    BenefitCost = benefitPerPaycheck,
+                    Salary = salaryPerPaycheck,
+                };
+
+                paycheck.MonthlyPaychecks.Add(monthlyPaycheck);
             }
 
-            if (remain == 0) 
-            {
-                return monthlyAmount;
-            }
-
-            // Adding the remaining to the last paycheck 
-            monthlyAmount[_paycheckPeriod - 1] = perPaycheckAmonnt + remain;
-            return monthlyAmount;
+            paycheck.MonthlyPaychecks[_paycheckPeriod - 1].Salary = paycheck.Employee.Salary % _paycheckPeriod + salaryPerPaycheck;
+            paycheck.MonthlyPaychecks[_paycheckPeriod - 1].BenefitCost = paycheck.TotalBenefitCost % _paycheckPeriod + benefitPerPaycheck;
+            
         }
     }
 }

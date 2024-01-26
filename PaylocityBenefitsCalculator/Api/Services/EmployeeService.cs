@@ -6,17 +6,12 @@ namespace Api.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        
-
-        private readonly IEmployeeRepository _employeeRepository;
-        private readonly IBenefitService _benefitService;    
-        private readonly IMonthlyPaycheckCalculator _monthlyPaycheckCalculator;
-        public EmployeeService(IMapper mapper, IEmployeeRepository employeeRepository, IBenefitService benefitService, IMonthlyPaycheckCalculator monthlyPaycheckCalculator) 
+        private readonly IMapper _mapper;
+        private readonly IEmployeeRepository _employeeRepository;       
+        public EmployeeService(IMapper mapper, IEmployeeRepository employeeRepository) 
         {
             _mapper = mapper;
-            _employeeRepository = employeeRepository;
-            _benefitService = benefitService;
-            _monthlyPaycheckCalculator = monthlyPaycheckCalculator;
+            _employeeRepository = employeeRepository;       
         }
         public GetEmployeeDto? GetEmployeeByID(int id)
         {
@@ -31,16 +26,6 @@ namespace Api.Services
         {
             var result = _employeeRepository.GetEmployees();
             return _mapper.Map<IEnumerable<GetEmployeeDto>>(result);
-        }
-        public GetEmployeeDto? CalculateBenefit(int id) 
-        {
-            var employee = _employeeRepository.GetEmployeeByID(id);
-            if (employee == null)
-            {
-                return null;
-            }
-
-          
         }
     }
 }
