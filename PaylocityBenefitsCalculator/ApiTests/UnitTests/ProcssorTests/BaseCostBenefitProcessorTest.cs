@@ -7,8 +7,6 @@ using Xunit;
 
 namespace ApiTests.UnitTests.ProcssorTests
 {
-    [Fact]
-    internal class BaseCostBenefitProcessorTest
-    {
-    }
+   
+  
 }
