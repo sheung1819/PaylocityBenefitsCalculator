@@ -6,7 +6,8 @@ namespace Api.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        private readonly IMapper _mapper;
+        
+
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IBenefitService _benefitService;    
         private readonly IMonthlyPaycheckCalculator _monthlyPaycheckCalculator;
@@ -39,21 +40,7 @@ namespace Api.Services
                 return null;
             }
 
-            var benefitCost = _benefitService.Calculate(employee);
-
-            var monthlyBenefitCost = _monthlyPaycheckCalculator.Calculate(benefitCost);
-            var monthlySalary = _monthlyPaycheckCalculator.Calculate(employee.Salary);
-
-            for(var i =0; i < monthlyBenefitCost.Count - 1 ; i++) 
-            {
-                employee.Paychecks.Add(new Models.MonthlyPaycheck()
-                {
-                    BenefitCost = monthlyBenefitCost[i],
-                    Salary = monthlySalary[i]
-                });
-            }
-
-            return _mapper.Map<GetEmployeeDto>(employee);
+          
         }
     }
 }
