@@ -2,16 +2,15 @@
 using Api.Models;
 using Api.Repositories;
 using AutoMapper;
+using System.Collections.Generic;
 
 namespace Api.Services
 {
-    public class DependentService : IDependentService
-    {
-        private readonly IMapper _mapper;
+    public class DependentService : BaseService, IDependentService
+    {        
         private readonly IEmployeeRepository _employeeRepository;
-        public DependentService(IMapper mapper, IEmployeeRepository employeeRepository) 
-        {
-            _mapper = mapper;
+        public DependentService(IMapper mapper, IEmployeeRepository employeeRepository)  : base(mapper) 
+        {     
             _employeeRepository = employeeRepository;   
         }
 
@@ -24,14 +23,14 @@ namespace Api.Services
             {
                 return null;
             }
-            return _mapper.Map<GetDependentDto>(dependent);
+            return MapToDot<GetDependentDto>(dependent);            
         }
 
         public IEnumerable<GetDependentDto> GetDependents()
         {
             var employees = _employeeRepository.GetEmployees();
             var dependents = employees.SelectMany(x => x.Dependents);
-            return _mapper.Map<IEnumerable<GetDependentDto>>(dependents);
+            return MapToDot<IEnumerable<GetDependentDto>>(dependents);
         }
     }
 }
