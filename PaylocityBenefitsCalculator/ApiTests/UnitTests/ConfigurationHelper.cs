@@ -9,7 +9,10 @@ namespace ApiTests.UnitTests
         {
             { "Benefit:BaseCost", "1000" },
             { "Benefit:DependentAgeCost", "200" },
-            { "Benefit:DependentAgeCheck", "50" }
+            { "Benefit:DependentAgeCheck", "50" },
+            { "Benefit:SalaryBracket" , "80000"},
+            { "Benefit:SalaryBracketPercent" , "2"},
+
         };
 
         public static IConfiguration Configuration

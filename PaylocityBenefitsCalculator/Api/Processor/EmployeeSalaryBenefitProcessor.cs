@@ -9,13 +9,13 @@ namespace Api.Processor
         public EmployeeSalaryBenefitProcessor(IConfiguration configuration) 
         {
             _salaryBracket = configuration.GetValue<decimal>("Benefit:SalaryBracket");
-            _salaryBracket = configuration.GetValue<decimal>("Benefit:SalaryBracketPercent");
+            _salaryBracketPercent = configuration.GetValue<decimal>("Benefit:SalaryBracketPercent");
         }
         public decimal CalculateBenefit(Employee employee)
         {
-            if (employee.Salary >= _salaryBracketPercent)
+            if (employee.Salary >= _salaryBracket)
             {
-                return employee.Salary * (_salaryBracket/ 100);
+                return employee.Salary * (_salaryBracketPercent / 100);
             }
 
             return 0;
