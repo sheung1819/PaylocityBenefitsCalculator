@@ -7,7 +7,7 @@ namespace Api.Processor
         private readonly decimal _benefitBaseCost;
         public BaseCostBenefitProcessor(IConfiguration configurationRoot) 
         {
-            _benefitBaseCost = configurationRoot.GetValue<decimal>("Benefit:BenefitBaseCost");
+            _benefitBaseCost = configurationRoot.GetValue<decimal>("Benefit:BaseCost");
         }
         public decimal CalculateBenefit(Employee employee)
         {

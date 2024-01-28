@@ -8,8 +8,8 @@ namespace Api.Processor
         private readonly decimal _benefitDependentAgeCheck;
         public DependentAgeBenefitProcessor(IConfiguration configuration)
         {
-            _benefitDependentAgeCost = configuration.GetValue<decimal>("Benefit:BenefitDependentAgeCost");
-            _benefitDependentAgeCheck = configuration.GetValue<decimal>("Benefit:BenefitDependentAgeCheck");
+            _benefitDependentAgeCost = configuration.GetValue<decimal>("Benefit:DependentAgeCost");
+            _benefitDependentAgeCheck = configuration.GetValue<decimal>("Benefit:DependentAgeCheck");
         }
         public decimal CalculateBenefit(Employee employee)
         {

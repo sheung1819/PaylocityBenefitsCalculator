@@ -7,8 +7,9 @@ namespace ApiTests.UnitTests
     {
         private static readonly Dictionary<string, string> ConfigDictionary = new()
         {
-            { "Benefit:BenefitBaseCost", "1000" },
-            { "Benefit:BenefitDependentAgeCost", "200" }
+            { "Benefit:BaseCost", "1000" },
+            { "Benefit:DependentAgeCost", "200" },
+            { "Benefit:DependentAgeCheck", "50" }
         };
 
         public static IConfiguration Configuration
