@@ -7,7 +7,7 @@ namespace Api.Processor
     {
         private readonly decimal _dependentCost;
         private readonly IDependentQualifyService _qualifyService;
-        public DependentCountBenefitProcessor(IConfiguration configuration, DependentQualifyService dependentQualifyService)         
+        public DependentCountBenefitProcessor(IConfiguration configuration, IDependentQualifyService dependentQualifyService)         
         {
             _dependentCost = configuration.GetValue<decimal>("Benefit:DependentCost");
             _qualifyService = dependentQualifyService;

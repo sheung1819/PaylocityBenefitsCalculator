@@ -4,16 +4,17 @@ using AutoMapper;
 
 namespace Api.Services
 {
-    
-    public class PaycheckService
+    public interface IPaycheckService
     {
-        private readonly IMapper _mapper;
+        Paycheck? CalculateMonthlyPaycheck(int employeeId);
+    }
+    public class PaycheckService : BaseService, IPaycheckService
+    {        
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IBenefitService _benefitService;
         private readonly IMonthlyPaycheckCalculator _monthlyPaycheckCalculator;
-        public PaycheckService(IMapper mapper, IEmployeeRepository employeeRepository, IBenefitService benefitService, IMonthlyPaycheckCalculator monthlyPaycheckCalculator) 
-        {
-            _mapper = mapper;
+        public PaycheckService(IMapper mapper, IEmployeeRepository employeeRepository, IBenefitService benefitService, IMonthlyPaycheckCalculator monthlyPaycheckCalculator) : base(mapper)
+        {     
             _employeeRepository = employeeRepository;
             _benefitService = benefitService;
             _monthlyPaycheckCalculator = monthlyPaycheckCalculator; 
