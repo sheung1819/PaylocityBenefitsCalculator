@@ -11,13 +11,7 @@ namespace Api.Services
         private readonly IList<string> _dependentRelationship;
         public DependentQualifyService(IConfiguration configuration)
         {
-            var relationship = configuration.GetValue<string>("Benefit:QualifyDependentRelationType");
-
-            if (relationship == null)
-            {
-                throw new Exception("Qualify Dependent Relation Type is not set in app setting");
-            }
-
+            var relationship = configuration.GetValue<string>("Benefit:QualifyDependentRelationType") ?? throw new Exception("Qualify Dependent Relation Type is not set in app setting");
             _dependentRelationship = relationship.Split(",");
 
         }
