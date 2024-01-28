@@ -12,7 +12,7 @@ namespace ApiTests.UnitTests
             { "Benefit:DependentAgeCheck", "50" },
             { "Benefit:SalaryBracket" , "80000"},
             { "Benefit:SalaryBracketPercent" , "2"},
-
+            { "Benefit:QualifyDependentRelationType" , "Child"}
         };
 
         public static IConfiguration Configuration
@@ -25,6 +25,15 @@ namespace ApiTests.UnitTests
 
                 return configuration;
             }
+        }
+
+        public static void OverrideConfigDictionary(string key, string value)
+        { 
+            if(ConfigDictionary.ContainsKey(key)) 
+            {
+                ConfigDictionary.Remove(key);            
+            }
+            ConfigDictionary.Add(key, value);
         }
     }
 }

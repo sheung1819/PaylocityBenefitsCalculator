@@ -2,16 +2,21 @@
 
 namespace Api.Services
 {
-    public interface IDependentIdentifierService
+    public interface IDependentQualifyService
     { 
         int GetDependentCount(Employee employee);
     }
-    public class DependentIdentifierService : IDependentIdentifierService
+    public class DependentQualifyService : IDependentQualifyService
     {
         private readonly IList<string> _dependentRelationship;
-        public DependentIdentifierService(IConfiguration configuration)
+        public DependentQualifyService(IConfiguration configuration)
         {
-            var relationship = configuration.GetValue<string>("QualifyDependentRelationType");
+            var relationship = configuration.GetValue<string>("Benefit:QualifyDependentRelationType");
+
+            if (relationship == null)
+            {
+                throw new Exception("Qualify Dependent Relation Type is not set in app setting");
+            }
 
             _dependentRelationship = relationship.Split(",");
 
