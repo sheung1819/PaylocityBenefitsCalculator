@@ -23,7 +23,7 @@ namespace Api.Services
         }
         public int GetDependentCount(Employee employee)
         {
-            return employee.Dependents.Select(x => !_dependentRelationship.Contains(x.Relationship.ToString())).Count();
+            return employee.Dependents.Where(x => _dependentRelationship.Contains(x.Relationship.ToString())).Count();
         }
     }
 }

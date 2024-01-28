@@ -1,11 +1,6 @@
 ﻿using Api.Models;
-using Api.Processor;
 using Api.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ApiTests.UnitTests
@@ -33,6 +28,52 @@ namespace ApiTests.UnitTests
             };
             var dependentCount = service.GetDependentCount(employee);
             Assert.True(dependentCount == 2);
+        }
+
+        [Fact]
+        public void DependentQualityService_Should_Return_NO_Dependent_Count_For_Non_Child()
+        {
+            var service = new DependentQualifyService(ConfigurationHelper.Configuration);
+
+            var employee = new Employee
+            {
+                Dependents = new List<Dependent>
+                {
+                    new Dependent
+                        {
+                            Relationship = Relationship.None
+                        },
+                    new Dependent
+                        {
+                            Relationship = Relationship.Spouse
+                        }
+                }
+            };
+            var dependentCount = service.GetDependentCount(employee);
+            Assert.True(dependentCount == 0);
+        }
+
+        [Fact]
+        public void DependentQualityService_Should_Return_NO_Dependent_Count_For_Child_Only()
+        {
+            var service = new DependentQualifyService(ConfigurationHelper.Configuration);
+
+            var employee = new Employee
+            {
+                Dependents = new List<Dependent>
+                {
+                    new Dependent
+                        {
+                            Relationship = Relationship.Child
+                        },
+                    new Dependent
+                        {
+                            Relationship = Relationship.Spouse
+                        }
+                }
+            };
+            var dependentCount = service.GetDependentCount(employee);
+            Assert.True(dependentCount == 1);
         }
     }
 }
