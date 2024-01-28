@@ -14,9 +14,8 @@ namespace Api.Processor
         } 
         public decimal CalculateBenefit(Employee employee)
         {
-            var dependentCount = _qualifyService.GetDependentCount(employee);
-
-            return dependentCount * _dependentCost; 
+            var dependents = _qualifyService.GetDependents(employee);
+            return dependents.Count() * _dependentCost; 
         }
     }
 }

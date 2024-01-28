@@ -1,6 +1,7 @@
 ﻿using Api.Models;
 using Api.Services;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace ApiTests.UnitTests
@@ -26,8 +27,8 @@ namespace ApiTests.UnitTests
                         }
                 }
             };
-            var dependentCount = service.GetDependentCount(employee);
-            Assert.True(dependentCount == 2);
+            var dependents = service.GetDependents(employee);
+            Assert.True(dependents.Count() == 2);
         }
 
         [Fact]
@@ -49,8 +50,8 @@ namespace ApiTests.UnitTests
                         }
                 }
             };
-            var dependentCount = service.GetDependentCount(employee);
-            Assert.True(dependentCount == 0);
+            var dependents = service.GetDependents(employee);
+            Assert.True(!dependents.Any());
         }
 
         [Fact]
@@ -72,8 +73,8 @@ namespace ApiTests.UnitTests
                         }
                 }
             };
-            var dependentCount = service.GetDependentCount(employee);
-            Assert.True(dependentCount == 1);
+            var dependents = service.GetDependents(employee);
+            Assert.True(dependents.Count() == 1);
         }
     }
 }

@@ -3,8 +3,8 @@
 namespace Api.Services
 {
     public interface IDependentQualifyService
-    { 
-        int GetDependentCount(Employee employee);
+    {
+        IEnumerable<Dependent> GetDependents(Employee employee);
     }
     public class DependentQualifyService : IDependentQualifyService
     {
@@ -21,9 +21,9 @@ namespace Api.Services
             _dependentRelationship = relationship.Split(",");
 
         }
-        public int GetDependentCount(Employee employee)
+        public IEnumerable<Dependent> GetDependents(Employee employee)
         {
-            return employee.Dependents.Where(x => _dependentRelationship.Contains(x.Relationship.ToString())).Count();
+            return employee.Dependents.Where(x => _dependentRelationship.Contains(x.Relationship.ToString()));
         }
     }
 }

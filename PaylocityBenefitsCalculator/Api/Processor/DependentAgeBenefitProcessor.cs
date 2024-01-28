@@ -1,4 +1,5 @@
 ﻿using Api.Models;
+using Api.Services;
 
 namespace Api.Processor
 {
@@ -6,10 +7,12 @@ namespace Api.Processor
     {
         private readonly decimal _benefitDependentAgeCost;
         private readonly decimal _benefitDependentAgeCheck;
-        public DependentAgeBenefitProcessor(IConfiguration configuration)
+        private readonly IDependentQualifyService _dependentQualifyService;
+        public DependentAgeBenefitProcessor(IConfiguration configuration, IDependentQualifyService dependentQualifyService)
         {
             _benefitDependentAgeCost = configuration.GetValue<decimal>("Benefit:DependentAgeCost");
             _benefitDependentAgeCheck = configuration.GetValue<decimal>("Benefit:DependentAgeCheck");
+            _dependentQualifyService = dependentQualifyService;
         }
         public decimal CalculateBenefit(Employee employee)
         {
@@ -18,9 +21,10 @@ namespace Api.Processor
                 return 0;
             }
 
-            var dependents = employee.Dependents.Where(x => Helper.CalculateAgeHelper.CalculateAge(x.DateOfBirth) > _benefitDependentAgeCheck);
+            var dependents =  _dependentQualifyService.GetDependents(employee);
 
-            return dependents.Count() * _benefitDependentAgeCost;
+            var dependentCount = dependents.Where(x => Helper.CalculateAgeHelper.CalculateAge(x.DateOfBirth) > _benefitDependentAgeCheck);
+            return dependentCount.Count() * _benefitDependentAgeCost;
         }
     }
 }
