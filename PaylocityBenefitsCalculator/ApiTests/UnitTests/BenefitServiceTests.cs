@@ -22,7 +22,7 @@ namespace ApiTests.UnitTests
             var dependentQualifyService = new Mock<IDependentQualifyService>();
 
             dependentQualifyService.Setup(x => x.GetDependents(It.IsAny<Employee>()))                
-                .Returns(new List<Dependent> { new Dependent() });
+                .Returns(new List<Dependent>());
 
             var baseCostBenefit = new Mock<BaseCostBenefitProcessor>(ConfigurationHelper.Configuration).Object;
             var ageBenefit = new Mock<DependentAgeBenefitProcessor>(ConfigurationHelper.Configuration, dependentQualifyService.Object).Object;
