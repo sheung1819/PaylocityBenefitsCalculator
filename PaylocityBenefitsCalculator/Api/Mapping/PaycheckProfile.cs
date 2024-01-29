@@ -1,5 +1,4 @@
-﻿using Api.Dtos.MonthlyPaycheck;
-using Api.Dtos.Paycheck;
+﻿using Api.Dtos.Paycheck;
 using Api.Models;
 using AutoMapper;
 

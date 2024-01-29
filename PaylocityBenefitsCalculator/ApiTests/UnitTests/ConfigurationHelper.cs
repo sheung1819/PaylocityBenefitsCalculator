@@ -12,7 +12,8 @@ namespace ApiTests.UnitTests
             { "Benefit:DependentAgeCheck", "50" },
             { "Benefit:SalaryBracket" , "80000"},
             { "Benefit:SalaryBracketPercent" , "2"},
-            { "Benefit:QualifyDependentRelationType" , "Child"}
+            { "Benefit:QualifyDependentRelationType" , "Child"},
+            { "Benefit:DependentCost","200" }
         };
 
         public static IConfiguration Configuration
