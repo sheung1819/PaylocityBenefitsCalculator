@@ -11,18 +11,6 @@ namespace ApiTests.UnitTests
 {
     public class PaycheckServiceTests
     {
-        private Mock<BaseCostBenefitProcessor> _mockBaseCost;
-        private List<IBenefitProcessor> _processors = new List<IBenefitProcessor>();
-        public PaycheckServiceTests() 
-        {
-            _mockBaseCost = new Mock<BaseCostBenefitProcessor>(ConfigurationHelper.Configuration);
-
-            //_processors.Add(_mockBaseCost.Object);
-
-        
-        }
-
-
         [Fact]
         public void PaycheckService_Should_Calculate_Monthly_Paycheck()
         { 
