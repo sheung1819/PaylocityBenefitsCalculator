@@ -1,4 +1,5 @@
-﻿using Api.Models;
+﻿using Api.Dtos.Paycheck;
+using Api.Models;
 using Api.Repositories;
 using AutoMapper;
 
@@ -6,7 +7,7 @@ namespace Api.Services
 {
     public interface IPaycheckService
     {
-        Paycheck? CalculateMonthlyPaycheck(int employeeId);
+        GetPaycheckDto? CalculateMonthlyPaycheck(int employeeId);
     }
     public class PaycheckService : BaseService, IPaycheckService
     {        
@@ -19,7 +20,7 @@ namespace Api.Services
             _benefitService = benefitService;
             _monthlyPaycheckCalculator = monthlyPaycheckCalculator; 
         }
-        public Paycheck? CalculateMonthlyPaycheck(int employeeId)
+        public GetPaycheckDto? CalculateMonthlyPaycheck(int employeeId)
         { 
             var employee = _employeeRepository.GetEmployeeByID(employeeId); 
 
@@ -38,7 +39,8 @@ namespace Api.Services
            
             _monthlyPaycheckCalculator.Calculate(paycheck);
 
-            return paycheck;
+
+            return base.MapToDot<GetPaycheckDto>(paycheck);            
         }
     }
 }
