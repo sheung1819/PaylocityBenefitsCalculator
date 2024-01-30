@@ -4,7 +4,7 @@ using Xunit;
 
 namespace ApiTests.UnitTests
 {
-    public class CalculateAgeHelperTest
+    public class CalculateAgeHelperTests
     {
 
         [Fact]
