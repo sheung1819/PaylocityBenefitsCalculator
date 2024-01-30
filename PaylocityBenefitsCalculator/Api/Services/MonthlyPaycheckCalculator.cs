@@ -23,8 +23,8 @@ namespace Api.Services
             {
                 var monthlyPaycheck = new MonthlyPaycheck
                 {
-                    BenefitCost = Math.Round(benefitPerPaycheck, 2, MidpointRounding.AwayFromZero),
-                    Salary = Math.Round(salaryPerPaycheck, 2, MidpointRounding.AwayFromZero)
+                    BenefitCost = benefitPerPaycheck,
+                    Salary = salaryPerPaycheck
                 };
 
                 paycheck.MonthlyPaychecks.Add(monthlyPaycheck);

@@ -31,132 +31,132 @@ namespace ApiTests.IntegrationTests
                     new GetMonthlyPaycheckDto
                     { 
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                     new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                      new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                       new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                        new GetMonthlyPaycheckDto
                     {
                         BenefitCost = 38.46m,
-                        Salary = 2900.81m
+                        Salary = 2900.80m
                     },
                      new GetMonthlyPaycheckDto
                     {
-                        BenefitCost = 50.46m,
-                        Salary = 2921.80m
+                        BenefitCost = 38.50m,
+                        Salary = 2900.99m
                     },
                 }
             };

@@ -28,7 +28,7 @@ namespace Api.Services
             {
                 return null;
             }
-
+          
             var benefitCost = _benefitService.Calculate(employee);
 
             var paycheck = new Paycheck
