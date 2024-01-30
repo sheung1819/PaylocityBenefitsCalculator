@@ -14,7 +14,7 @@ namespace ApiTests.IntegrationTests
     public class PaycheckIntegrationTests : IntegrationTest
     {
         [Fact]       
-        public async Task WhenAskedForPaycheckCalculation_ShouldReturnCorrect_Correct_Paycheck_Period()
+        public async Task WhenAskedForPaycheckCalculation_ShouldReturnCorrectPaycheckPeriod()
         {
             var response = await HttpClient.GetAsync("/api/v1/paycheck/1");
             var paycheck = new GetPaycheckDto
