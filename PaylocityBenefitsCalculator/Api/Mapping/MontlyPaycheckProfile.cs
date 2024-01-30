@@ -8,7 +8,7 @@ namespace Api.Mapping
     {
         public MontlyPaycheckProfile()
         {
-            CreateMap<GetMonthyPaycheckDto, MonthlyPaycheck>().ReverseMap();
+            CreateMap<GetMonthlyPaycheckDto, MonthlyPaycheck>().ReverseMap();
         }
     }
 }
