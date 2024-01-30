@@ -48,8 +48,37 @@ namespace ApiTests.UnitTests
             paycheck.TotalBenefitCost = 100;
             calculator.Calculate(paycheck);
 
-            var lastPaycheckPeriod = ConfigurationHelper.Configuration.GetValue<int>("PaycheckPeriod") - 1;
+            var lastPaycheckPeriod = ConfigurationHelper.Configuration.GetValue<int>("PaycheckPeriod") - 1;            
             Assert.True(paycheck.MonthlyPaychecks[lastPaycheckPeriod].Salary == 28.65m);
+
+            paycheck.MonthlyPaychecks.RemoveAt(lastPaycheckPeriod);           
+            Assert.All(paycheck.MonthlyPaychecks, x => Assert.Equal(28.62m, x.Salary));
         }
+
+        [Fact]
+        public void WhenCalculateMonthlyPaycheck_MonthlyPaycheckShouldSumUpToSalary()
+        {
+            var calculator = new MonthlyPaycheckCalculator(ConfigurationHelper.Configuration);
+            var paycheck = new Paycheck();
+            paycheck.Employee.Salary = 143.13m;
+            paycheck.TotalBenefitCost = 100;
+            calculator.Calculate(paycheck);
+
+            Assert.True(paycheck.MonthlyPaychecks.Select(x => x.Salary).Sum() == 143.13m);
+            
+        }
+        [Fact]
+        public void WhenCalculateMonthlyPaycheck_benefitCostShouldSumUpToTotalBenefitCost()
+        {
+            var calculator = new MonthlyPaycheckCalculator(ConfigurationHelper.Configuration);
+            var paycheck = new Paycheck();
+            paycheck.Employee.Salary = 143.13m;
+            paycheck.TotalBenefitCost = 14.56m;
+            calculator.Calculate(paycheck);
+
+            Assert.True(paycheck.MonthlyPaychecks.Select(x => x.BenefitCost).Sum() == 14.56m);
+
+        }
+
     }
 }

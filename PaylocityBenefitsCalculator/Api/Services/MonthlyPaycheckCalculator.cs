@@ -12,6 +12,10 @@ namespace Api.Services
         public MonthlyPaycheckCalculator(IConfiguration configuration) 
         {
             _paycheckPeriod = configuration.GetValue<int>("PaycheckPeriod");
+            if (_paycheckPeriod <= 0)
+            {
+                throw new Exception("Paycheck Period not set ");            
+            }
         }             
 
         public void Calculate(Paycheck paycheck)

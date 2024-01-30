@@ -10,7 +10,7 @@ namespace ApiTests.UnitTests.ProcessorTests
     public class DependentAgeBenefitProcessorTest
     {
         [Fact]
-        public void DependentAgeBenefitProcessor_Should_Calculate_no_dependent()
+        public void WhenNoDependents_ShouldReturnZero()
         {
             var mockService = new Mock<IDependentQualifyService>();
             mockService.Setup(x => x.GetDependents(It.IsAny<Employee>())).Returns(new List<Dependent>());
@@ -22,7 +22,7 @@ namespace ApiTests.UnitTests.ProcessorTests
         }
 
         [Fact]
-        public void DependentAgeBenefitProcessor_Should_Calculate_one_dependent()
+        public void WhenDependentOver50_ShouldAddToBenefitCost()
         {
             var mockService = new Mock<IDependentQualifyService>();
             mockService.Setup(x => x.GetDependents(It.IsAny<Employee>())).Returns(new List<Dependent> { new Dependent { DateOfBirth = new System.DateTime(1970, 1, 1) } });
@@ -40,7 +40,7 @@ namespace ApiTests.UnitTests.ProcessorTests
         }
 
         [Fact]
-        public void DependentAgeBenefitProcessor_Should_Calculate_one_dependent_Not_Over_50()
+        public void whhenDependNotOver50_ShouldNotAddAdditionalBenefitCost()
         {
             var mockService = new Mock<IDependentQualifyService>();
             mockService.Setup(x => x.GetDependents(It.IsAny<Employee>())).Returns(new List<Dependent> { new Dependent { DateOfBirth = new System.DateTime(2022, 1, 1) } });
@@ -55,6 +55,33 @@ namespace ApiTests.UnitTests.ProcessorTests
             var result = processor.CalculateBenefit(employee);
 
             Assert.True(result == 0);
+        }
+
+
+        [Fact]
+        public void whhenDependOver50_ShouldNotAddAdditionalBenefitCostForDependentUnder50()
+        {
+            var dependents = new List<Dependent>
+            {
+                new Dependent
+                {
+                    DateOfBirth = new System.DateTime(1970, 1, 1)
+                } ,
+                new Dependent
+                {
+                    DateOfBirth = new System.DateTime(1970, 4, 1),
+                }
+            };
+
+            var mockService = new Mock<IDependentQualifyService>();
+            mockService.Setup(x => x.GetDependents(It.IsAny<Employee>())).Returns(dependents);
+
+            var processor = new DependentAgeBenefitProcessor(ConfigurationHelper.Configuration, mockService.Object);
+            var employee = new Employee();
+            employee.Dependents = dependents;
+            var result = processor.CalculateBenefit(employee);
+
+            Assert.True(result == 400);
         }
     }
 }
