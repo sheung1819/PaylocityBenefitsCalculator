@@ -1,10 +1,9 @@
-﻿using Api.Models;
-using Api.Processor;
+﻿using Api.Dtos.Paycheck;
+using Api.Models;
 using Api.Repositories;
 using Api.Services;
 using AutoMapper;
 using Moq;
-using System.Collections.Generic;
 using Xunit;
 
 namespace ApiTests.UnitTests
@@ -13,7 +12,7 @@ namespace ApiTests.UnitTests
     {
         [Fact]
         public void PaycheckService_Should_Calculate_Monthly_Paycheck()
-        { 
+        {
             var mockEmployeeRepository = new Mock<IEmployeeRepository>();
             mockEmployeeRepository
                 .Setup(x => x.GetEmployeeByID(It.IsAny<int>()))
@@ -29,6 +28,7 @@ namespace ApiTests.UnitTests
                 .Setup(x => x.Calculate(It.IsAny<Paycheck>()));
 
             var mockMapper = new Mock<IMapper>();
+            mockMapper.Setup(x => x.Map<GetPaycheckDto>(It.IsAny<Paycheck>())).Returns(new GetPaycheckDto());   
 
             var paycheckService = new PaycheckService(mockMapper.Object, mockEmployeeRepository.Object, mockBenefitService.Object, mockMonthlyPaycheckCalculator.Object);
             var result = paycheckService.CalculateMonthlyPaycheck(11);
@@ -36,7 +36,7 @@ namespace ApiTests.UnitTests
 
         }
 
-        
-        
+
+
     }
 }
