@@ -3,9 +3,7 @@ using Api.Dtos.MonthlyPaycheck;
 using Api.Dtos.Paycheck;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 

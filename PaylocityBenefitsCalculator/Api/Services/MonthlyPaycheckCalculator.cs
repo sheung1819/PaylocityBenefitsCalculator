@@ -16,8 +16,8 @@ namespace Api.Services
 
         public void Calculate(Paycheck paycheck)
         {
-            var salaryPerPaycheck = paycheck.Employee.Salary / _paycheckPeriod;
-            var benefitPerPaycheck = paycheck.TotalBenefitCost / _paycheckPeriod;
+            var salaryPerPaycheck = Math.Round(paycheck.Employee.Salary / _paycheckPeriod, 2, MidpointRounding.ToZero);
+            var benefitPerPaycheck = Math.Round(paycheck.TotalBenefitCost / _paycheckPeriod, 2, MidpointRounding.ToZero);
             
             for (var i = 0; i < _paycheckPeriod; i++)
             {
@@ -28,10 +28,19 @@ namespace Api.Services
                 };
 
                 paycheck.MonthlyPaychecks.Add(monthlyPaycheck);
-            }
+            }            
 
-            paycheck.MonthlyPaychecks[_paycheckPeriod - 1].Salary = Math.Round(paycheck.Employee.Salary % _paycheckPeriod + salaryPerPaycheck, 2, MidpointRounding.AwayFromZero);
-            paycheck.MonthlyPaychecks[_paycheckPeriod - 1].BenefitCost = Math.Round(paycheck.TotalBenefitCost % _paycheckPeriod + benefitPerPaycheck, 2, MidpointRounding.AwayFromZero);            
-        }
+            var salaryLeftOverAmount = paycheck.Employee.Salary - (salaryPerPaycheck * _paycheckPeriod);
+            if(salaryLeftOverAmount > 0) 
+            {
+                paycheck.MonthlyPaychecks[_paycheckPeriod - 1].Salary = Math.Round(salaryPerPaycheck + salaryLeftOverAmount, 2, MidpointRounding.ToEven);
+            }         
+
+            var benefitLeftOverAmount = paycheck.TotalBenefitCost - (benefitPerPaycheck * _paycheckPeriod);
+            if (benefitLeftOverAmount > 0)
+            {
+                paycheck.MonthlyPaychecks[_paycheckPeriod - 1].BenefitCost = Math.Round(benefitPerPaycheck + benefitLeftOverAmount, 2, MidpointRounding.ToEven);
+            }
+        }       
     }
 }
