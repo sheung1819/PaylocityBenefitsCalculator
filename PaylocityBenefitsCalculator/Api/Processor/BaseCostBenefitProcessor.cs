@@ -2,7 +2,7 @@
 
 namespace Api.Processor
 {
-    public class BaseCostBenefitProcessor : IBenefitProcessor
+    public class BaseCostBenefitProcessor : IBenefitProcessor, IEmployeeProcessor
     {
         private readonly decimal _benefitBaseCost;
         public BaseCostBenefitProcessor(IConfiguration configurationRoot) 

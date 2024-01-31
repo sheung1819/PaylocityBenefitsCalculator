@@ -3,7 +3,7 @@ using Api.Services;
 
 namespace Api.Processor
 {
-    public class DependentCountBenefitProcessor : IBenefitProcessor
+    public class DependentCountBenefitProcessor : IBenefitProcessor, IDependentProcessor
     {
         private readonly decimal _dependentCost;
         private readonly IDependentQualifyService _qualifyService;

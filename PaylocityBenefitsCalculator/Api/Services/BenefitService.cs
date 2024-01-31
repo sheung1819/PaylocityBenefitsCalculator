@@ -28,16 +28,26 @@ namespace Api.Services
 
         private void AddDependentBenefitProcessor(Employee employee, List<IBenefitProcessor?> benefitProcessors)
         {
-            if(!employee.Dependents.Any()) 
+            if (!employee.Dependents.Any())
             {
                 return;
             }
 
             var factory = _factories.OfType<DependentBenefitProcessorFactory>().FirstOrDefault();
-            if (factory != null)
+            if (factory == null)
             {
-                benefitProcessors.Add(factory.Create(ProcessorNameSpace + "DependentAgeBenefitProcessor"));
-                benefitProcessors.Add(factory.Create(ProcessorNameSpace + "DependentCountBenefitProcessor"));
+                return;
+            }
+
+            var type = typeof(IDependentProcessor);
+            var types = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.Contains("Api"))
+                            .SelectMany(s => s.GetTypes())
+                            .Where(p => type.IsAssignableFrom(p));
+
+            foreach (var processor in types.Where(x => !x.IsInterface))
+            {
+                if(processor != null && !string.IsNullOrWhiteSpace(processor.FullName))
+                    benefitProcessors.Add(factory.Create(processor.FullName));
             }
         }
 
@@ -45,12 +55,22 @@ namespace Api.Services
         {
 
             var factory = _factories.OfType<EmployeeBenefitProcessorFactory>().FirstOrDefault();           
-            if(factory != null) 
+            if(factory == null) 
             {
-                benefitProcessors.Add(factory.Create(ProcessorNameSpace + "BaseCostBenefitProcessor"));
-                benefitProcessors.Add(factory.Create(ProcessorNameSpace + "EmployeeSalaryBenefitProcessor"));
+                return;
             }
-        }
+
+            var type = typeof(IEmployeeProcessor);
+            var types = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.Contains("Api"))
+                            .SelectMany(s => s.GetTypes())
+                            .Where(p => type.IsAssignableFrom(p));
+
+            foreach (var processor in types.Where(x => !x.IsInterface))
+            {
+                if (processor != null && !string.IsNullOrWhiteSpace(processor.FullName))
+                    benefitProcessors.Add(factory.Create(processor.FullName));
+            }
+        }       
 
         private static decimal ProcessBenefit(Employee employee, List<IBenefitProcessor?> processors)
         {
