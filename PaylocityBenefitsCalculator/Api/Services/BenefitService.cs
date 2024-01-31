@@ -5,16 +5,14 @@ using System.Collections.Concurrent;
 namespace Api.Services
 {
     public class BenefitService : IBenefitService
-    {        
-        private readonly IProcessorFactory _employeeProcessor;
-        private readonly IProcessorFactory _dependentProcessor;
-        private const string ProcessorNameSpace = "Api.Processor.";
+    {
+        private readonly IEnumerable<IProcessorFactory> _factories;
+     
+        private const string ProcessorNameSpace = "Api.Processor.";       
 
-        public BenefitService([FromKeyedServices("EmployeeProcessor")] IProcessorFactory employeeProcessor,
-            [FromKeyedServices("DependentProcessor")] IProcessorFactory dependentProcessor)
+        public BenefitService(IEnumerable<IProcessorFactory> factories)
         {
-            _employeeProcessor = employeeProcessor;
-            _dependentProcessor = dependentProcessor;
+            _factories = factories;          
         }
 
         public decimal Calculate(Employee employee)
@@ -30,17 +28,28 @@ namespace Api.Services
 
         private void AddDependentBenefitProcessor(Employee employee, List<IBenefitProcessor?> benefitProcessors)
         {
-            if (employee.Dependents.Any())
+            if(!employee.Dependents.Any()) 
             {
-                benefitProcessors.Add(_dependentProcessor.Create(ProcessorNameSpace + "DependentAgeBenefitProcessor"));
-                benefitProcessors.Add(_dependentProcessor.Create(ProcessorNameSpace + "DependentCountBenefitProcessor"));
+                return;
+            }
+
+            var factory = _factories.OfType<DependentBenefitProcessorFactory>().FirstOrDefault();
+            if (factory != null)
+            {
+                benefitProcessors.Add(factory.Create(ProcessorNameSpace + "DependentAgeBenefitProcessor"));
+                benefitProcessors.Add(factory.Create(ProcessorNameSpace + "DependentCountBenefitProcessor"));
             }
         }
 
         private void AddEmployeeBenefitProcessor(List<IBenefitProcessor?> benefitProcessors)
         {
-            benefitProcessors.Add(_employeeProcessor.Create(ProcessorNameSpace + "BaseCostBenefitProcessor"));
-            benefitProcessors.Add(_employeeProcessor.Create(ProcessorNameSpace + "EmployeeSalaryBenefitProcessor"));
+
+            var factory = _factories.OfType<EmployeeBenefitProcessorFactory>().FirstOrDefault();           
+            if(factory != null) 
+            {
+                benefitProcessors.Add(factory.Create(ProcessorNameSpace + "BaseCostBenefitProcessor"));
+                benefitProcessors.Add(factory.Create(ProcessorNameSpace + "EmployeeSalaryBenefitProcessor"));
+            }
         }
 
         private static decimal ProcessBenefit(Employee employee, List<IBenefitProcessor?> processors)

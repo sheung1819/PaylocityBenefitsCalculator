@@ -1,6 +1,7 @@
 using Api.Processor;
 using Api.Repositories;
 using Api.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,8 +37,10 @@ builder.Services.AddTransient<IPaycheckService, PaycheckService>();
 builder.Services.AddTransient<IBenefitService, BenefitService>();
 builder.Services.AddTransient<IMonthlyPaycheckCalculator, MonthlyPaycheckCalculator>();
 builder.Services.AddTransient<IDependentQualifyService, DependentQualifyService>();
-builder.Services.AddKeyedTransient<IProcessorFactory, EmployeeBenefitProcessorFactory>("EmployeeProcessor");
-builder.Services.AddKeyedTransient<IProcessorFactory, DependentBenefitProcessorFactory>("DependentProcessor");
+//builder.Services.AddKeyedTransient<IProcessorFactory, EmployeeBenefitProcessorFactory>("EmployeeProcessor");
+//builder.Services.AddKeyedTransient<IProcessorFactory, DependentBenefitProcessorFactory>("DependentProcessor");
+builder.Services.AddTransient<IProcessorFactory, EmployeeBenefitProcessorFactory>();
+builder.Services.AddTransient<IProcessorFactory, DependentBenefitProcessorFactory>();
 
 
 
