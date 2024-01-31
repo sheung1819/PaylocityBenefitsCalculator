@@ -1,3 +1,4 @@
+using Api.Processor;
 using Api.Repositories;
 using Api.Services;
 using Microsoft.OpenApi.Models;
@@ -31,6 +32,16 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 builder.Services.AddTransient<IDependentService, DependentService>();
+builder.Services.AddTransient<IPaycheckService, PaycheckService>();
+builder.Services.AddTransient<IBenefitService, BenefitService>();
+builder.Services.AddTransient<IMonthlyPaycheckCalculator, MonthlyPaycheckCalculator>();
+builder.Services.AddTransient<IDependentQualifyService, DependentQualifyService>();
+
+builder.Services.AddTransient<IBenefitProcessor, BaseCostBenefitProcessor>();
+builder.Services.AddTransient<IBenefitProcessor, DependentAgeBenefitProcessor>();
+builder.Services.AddTransient<IBenefitProcessor, EmployeeSalaryBenefitProcessor>();
+builder.Services.AddTransient<IBenefitProcessor, DependentCountBenefitProcessor>();
+
 
 var app = builder.Build();
 

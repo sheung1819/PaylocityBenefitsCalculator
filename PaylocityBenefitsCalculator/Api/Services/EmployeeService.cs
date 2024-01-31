@@ -4,14 +4,12 @@ using AutoMapper;
 
 namespace Api.Services
 {
-    public class EmployeeService : IEmployeeService
-    {
-        private readonly IMapper _mapper;
-        private readonly IEmployeeRepository _employeeRepository;
-        public EmployeeService(IMapper mapper, IEmployeeRepository employeeRepository) 
-        {
-            _mapper = mapper;
-            _employeeRepository = employeeRepository;
+    public class EmployeeService : BaseService,  IEmployeeService
+    {        
+        private readonly IEmployeeRepository _employeeRepository;       
+        public EmployeeService(IMapper mapper, IEmployeeRepository employeeRepository) : base(mapper) 
+        {        
+            _employeeRepository = employeeRepository;       
         }
         public GetEmployeeDto? GetEmployeeByID(int id)
         {
@@ -20,13 +18,13 @@ namespace Api.Services
             {
                 return null;
             }
-            return _mapper.Map<GetEmployeeDto>(result);
-        }
 
+            return MapToDot<GetEmployeeDto>(result);             
+        }
         public IEnumerable<GetEmployeeDto> GetEmployees()
         {
             var result = _employeeRepository.GetEmployees();
-            return _mapper.Map<IEnumerable<GetEmployeeDto>>(result);
+            return MapToDot<IEnumerable<GetEmployeeDto>>(result);       
         }
     }
 }
