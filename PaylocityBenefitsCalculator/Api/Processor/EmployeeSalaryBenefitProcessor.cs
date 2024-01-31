@@ -2,7 +2,7 @@
 
 namespace Api.Processor
 {
-    public class EmployeeSalaryBenefitProcessor : IBenefitProcessor
+    public class EmployeeSalaryBenefitProcessor : IBenefitProcessor, IEmployeeProcessor
     {
         private decimal _salaryBracket;
         private decimal _salaryBracketPercent;

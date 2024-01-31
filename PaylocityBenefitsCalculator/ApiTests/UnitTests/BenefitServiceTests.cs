@@ -2,11 +2,8 @@
 using Api.Processor;
 using Api.Services;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using Xunit;
 
 namespace ApiTests.UnitTests
@@ -17,27 +14,35 @@ namespace ApiTests.UnitTests
         [Fact]
         public void BenefitService_Should_Calculate_Benefit()
         {
-            var _processors = new List<IBenefitProcessor>();
+            var factory = new EmployeeBenefitProcessorFactory(ConfigurationHelper.Configuration);
 
-            var dependentQualifyService = new Mock<IDependentQualifyService>();
-
-            dependentQualifyService.Setup(x => x.GetDependents(It.IsAny<Employee>()))                
-                .Returns(new List<Dependent>());
-
-            var baseCostBenefit = new Mock<BaseCostBenefitProcessor>(ConfigurationHelper.Configuration).Object;
-            var ageBenefit = new Mock<DependentAgeBenefitProcessor>(ConfigurationHelper.Configuration, dependentQualifyService.Object).Object;
-            var countBenefit = new Mock<DependentCountBenefitProcessor>(ConfigurationHelper.Configuration, dependentQualifyService.Object).Object;
-            var salaryBenefit = new Mock<EmployeeSalaryBenefitProcessor>(ConfigurationHelper.Configuration).Object;
-
-            _processors.Add(baseCostBenefit);
-            _processors.Add(ageBenefit);
-            _processors.Add(countBenefit);
-            _processors.Add(salaryBenefit);
-            
-            var benefitService = new BenefitService(_processors);
+            var factories = new List<IProcessorFactory>
+            {
+                factory
+            };
+            var benefitService = new BenefitService(factories);
             var result = benefitService.Calculate(new Employee());
 
             Assert.True(result == 1000);
+        }
+
+        [Fact]
+        public void WhenEmployeeHasDependent_Should_Not_Calculate_Benefit_When_No_Dependents()
+        {
+            var dependentQualifyService = new Mock<IDependentQualifyService>();
+            dependentQualifyService.Setup(x => x.GetDependents(It.IsAny<Employee>()))
+                .Returns(new List<Dependent>());
+
+            var factory = new DependentBenefitProcessorFactory(ConfigurationHelper.Configuration, dependentQualifyService.Object);
+
+            var factories = new List<IProcessorFactory>
+            {
+                factory
+            };
+            var benefitService = new BenefitService(factories);
+            var result = benefitService.Calculate(new Employee());
+
+            Assert.True(result == 0);
         }
     }
 }

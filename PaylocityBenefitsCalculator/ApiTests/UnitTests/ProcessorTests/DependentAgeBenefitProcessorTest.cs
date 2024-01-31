@@ -40,7 +40,7 @@ namespace ApiTests.UnitTests.ProcessorTests
         }
 
         [Fact]
-        public void whhenDependNotOver50_ShouldNotAddAdditionalBenefitCost()
+        public void whenDependNotOver50_ShouldNotAddAdditionalCostWhenAgeIsNotOver50()
         {
             var mockService = new Mock<IDependentQualifyService>();
             mockService.Setup(x => x.GetDependents(It.IsAny<Employee>())).Returns(new List<Dependent> { new Dependent { DateOfBirth = new System.DateTime(2022, 1, 1) } });
@@ -59,7 +59,7 @@ namespace ApiTests.UnitTests.ProcessorTests
 
 
         [Fact]
-        public void whhenDependOver50_ShouldNotAddAdditionalBenefitCostForDependentUnder50()
+        public void whenDependOver50_ShouldNotAddAdditionalBenefitCostForDependentUnder50()
         {
             var dependents = new List<Dependent>
             {
